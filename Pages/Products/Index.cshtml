@@ -1,26 +1,26 @@
 @page
 @model aspshop.Pages.Products.IndexModel
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = L["Products"].Value;
 }
 
 <div class="space-y-6">
     <!-- Search & Filter Bar -->
     <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <h1 class="text-3xl font-bold text-white">Products</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">@L["Products"]</h1>
         <form method="get" class="flex gap-2">
             <input type="text" name="search" value="@Model.SearchTerm"
-                   placeholder="Search products..."
-                   class="bg-slate-800 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
-            <select name="category" class="bg-slate-800 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm">
-                <option value="">All Categories</option>
+                   placeholder="@L["SearchProducts"].Value"
+                   class="bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+            <select name="category" class="bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm">
+                <option value="">@L["AllCategories"]</option>
                 @foreach (var cat in Model.Categories)
                 {
                     <option value="@cat.Slug" selected="@(Model.CategoryFilter == cat.Slug)">@cat.Name</option>
                 }
             </select>
             <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-                Search
+                @L["Search"]
             </button>
         </form>
     </div>
@@ -29,26 +29,26 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach (var product in Model.Products)
         {
-            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-indigo-500 transition">
-                <div class="h-48 bg-slate-700 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden hover:border-indigo-500 transition">
+                <div class="h-48 bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gray-300 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                 </div>
                 <div class="p-4">
-                    <span class="text-xs text-indigo-400 font-medium">@product.Category.Name</span>
-                    <h3 class="text-lg font-semibold text-white mt-1">@product.Name</h3>
-                    <p class="text-sm text-slate-400 mt-1 line-clamp-2">@product.Description</p>
+                    <span class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">@product.Category.Name</span>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-1">@product.Name</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-1 line-clamp-2">@product.Description</p>
                     <div class="flex items-center justify-between mt-4">
-                        <span class="text-xl font-bold text-emerald-400">$@product.Price.ToString("F2")</span>
-                        <span class="text-xs px-2 py-1 rounded bg-slate-700 text-slate-300">
-                            @(product.ProductType == aspshop.Models.ProductType.Digital ? "Digital" : "Physical")
+                        <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">$@product.Price.ToString("F2")</span>
+                        <span class="text-xs px-2 py-1 rounded bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300">
+                            @(product.ProductType == aspshop.Models.ProductType.Digital ? L["Digital"].Value : L["Physical"].Value)
                         </span>
                     </div>
                     <div class="flex gap-2 mt-3">
                         <a asp-page="/Products/Detail" asp-route-id="@product.Id"
-                           class="flex-1 text-center text-sm border border-slate-600 hover:border-slate-500 text-slate-300 py-2 rounded-lg transition">
-                            Details
+                           class="flex-1 text-center text-sm border border-gray-300 dark:border-slate-600 hover:border-gray-400 dark:hover:border-slate-500 text-gray-600 dark:text-slate-300 py-2 rounded-lg transition">
+                            @L["Details"]
                         </a>
                         <form method="post" asp-page-handler="AddToCart" class="flex-1">
                             <input type="hidden" name="productId" value="@product.Id" />
@@ -56,7 +56,7 @@
                             <input type="hidden" name="category" value="@Model.CategoryFilter" />
                             <button type="submit"
                                     class="w-full text-sm bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg transition">
-                                Add to Cart
+                                @L["AddToCart"]
                             </button>
                         </form>
                     </div>
@@ -68,7 +68,7 @@
     @if (!Model.Products.Any())
     {
         <div class="text-center py-12">
-            <p class="text-slate-400 text-lg">No products found.</p>
+            <p class="text-gray-500 dark:text-slate-400 text-lg">@L["NoProducts"]</p>
         </div>
     }
 </div>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <data name="Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Products" xml:space="preserve"><value>Products</value></data>
+  <data name="Admin" xml:space="preserve"><value>Admin</value></data>
+  <data name="Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Register" xml:space="preserve"><value>Register</value></data>
+  <data name="Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Orders" xml:space="preserve"><value>Orders</value></data>
+  <data name="ShoppingCart" xml:space="preserve"><value>Shopping Cart</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Add to Cart</value></data>
+  <data name="Checkout" xml:space="preserve"><value>Checkout</value></data>
+  <data name="ContinueShopping" xml:space="preserve"><value>Continue Shopping</value></data>
+  <data name="PlaceOrder" xml:space="preserve"><value>Place Order</value></data>
+  <data name="Search" xml:space="preserve"><value>Search</value></data>
+  <data name="SearchProducts" xml:space="preserve"><value>Search products...</value></data>
+  <data name="AllCategories" xml:space="preserve"><value>All Categories</value></data>
+  <data name="Details" xml:space="preserve"><value>Details</value></data>
+  <data name="Reviews" xml:space="preserve"><value>Reviews</value></data>
+  <data name="SubmitReview" xml:space="preserve"><value>Submit Review</value></data>
+  <data name="CartEmpty" xml:space="preserve"><value>Your cart is empty.</value></data>
+  <data name="BrowseProducts" xml:space="preserve"><value>Browse Products</value></data>
+  <data name="Subtotal" xml:space="preserve"><value>Subtotal</value></data>
+  <data name="Total" xml:space="preserve"><value>Total</value></data>
+  <data name="Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="ShareAndSave" xml:space="preserve"><value>Share &amp; Save 10%!</value></data>
+  <data name="ShareDescription" xml:space="preserve"><value>Share your cart on social media and get an instant 10% discount</value></data>
+  <data name="DiscountApplied" xml:space="preserve"><value>Social share discount applied!</value></data>
+  <data name="CompleteYourSetup" xml:space="preserve"><value>Complete Your Setup</value></data>
+  <data name="FrequentlyBoughtTogether" xml:space="preserve"><value>Frequently Bought Together</value></data>
+  <data name="YouMightAlsoLike" xml:space="preserve"><value>You Might Also Like</value></data>
+  <data name="OrderConfirmed" xml:space="preserve"><value>Order Confirmed!</value></data>
+  <data name="ThankYou" xml:space="preserve"><value>Thank you for your purchase. This is a demo order.</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Welcome to EShop</value></data>
+  <data name="HeroSubtitle" xml:space="preserve"><value>Discover amazing products at great prices</value></data>
+  <data name="ShopNow" xml:space="preserve"><value>Shop Now</value></data>
+  <data name="FeaturedProducts" xml:space="preserve"><value>Featured Products</value></data>
+  <data name="ShopByCategory" xml:space="preserve"><value>Shop by Category</value></data>
+  <data name="Email" xml:space="preserve"><value>Email</value></data>
+  <data name="Password" xml:space="preserve"><value>Password</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Confirm Password</value></data>
+  <data name="FirstName" xml:space="preserve"><value>First Name</value></data>
+  <data name="LastName" xml:space="preserve"><value>Last Name</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>Create Account</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Save Changes</value></data>
+  <data name="MyProfile" xml:space="preserve"><value>My Profile</value></data>
+  <data name="MyOrders" xml:space="preserve"><value>My Orders</value></data>
+  <data name="NoOrders" xml:space="preserve"><value>You haven't placed any orders yet.</value></data>
+  <data name="Digital" xml:space="preserve"><value>Digital</value></data>
+  <data name="Physical" xml:space="preserve"><value>Physical</value></data>
+  <data name="InStock" xml:space="preserve"><value>in stock</value></data>
+  <data name="OutOfStock" xml:space="preserve"><value>Out of stock</value></data>
+  <data name="NoProducts" xml:space="preserve"><value>No products found.</value></data>
+  <data name="BackToProducts" xml:space="preserve"><value>Back to products</value></data>
+  <data name="LoginToReview" xml:space="preserve"><value>Login to leave a review.</value></data>
+  <data name="NoReviews" xml:space="preserve"><value>No reviews yet. Be the first!</value></data>
+  <data name="Rating" xml:space="preserve"><value>Rating</value></data>
+  <data name="Title" xml:space="preserve"><value>Title</value></data>
+  <data name="Comment" xml:space="preserve"><value>Comment</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Order Summary</value></data>
+  <data name="ShippingInformation" xml:space="preserve"><value>Shipping Information</value></data>
+  <data name="PaymentDemo" xml:space="preserve"><value>Payment (Demo)</value></data>
+  <data name="MockPaymentNote" xml:space="preserve"><value>This is a mock checkout. No real payment is processed.</value></data>
+  <data name="CardNumber" xml:space="preserve"><value>Card Number</value></data>
+  <data name="Address" xml:space="preserve"><value>Address</value></data>
+  <data name="City" xml:space="preserve"><value>City</value></data>
+  <data name="State" xml:space="preserve"><value>State</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>Zip Code</value></data>
+  <data name="DontHaveAccount" xml:space="preserve"><value>Don't have an account?</value></data>
+  <data name="AlreadyHaveAccount" xml:space="preserve"><value>Already have an account?</value></data>
+</root>

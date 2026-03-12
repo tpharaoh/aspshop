@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <data name="Home" xml:space="preserve"><value>Αρχική</value></data>
+  <data name="Products" xml:space="preserve"><value>Προϊόντα</value></data>
+  <data name="Admin" xml:space="preserve"><value>Διαχείριση</value></data>
+  <data name="Login" xml:space="preserve"><value>Σύνδεση</value></data>
+  <data name="Register" xml:space="preserve"><value>Εγγραφή</value></data>
+  <data name="Logout" xml:space="preserve"><value>Αποσύνδεση</value></data>
+  <data name="Profile" xml:space="preserve"><value>Προφίλ</value></data>
+  <data name="Orders" xml:space="preserve"><value>Παραγγελίες</value></data>
+  <data name="ShoppingCart" xml:space="preserve"><value>Καλάθι Αγορών</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Προσθήκη στο Καλάθι</value></data>
+  <data name="Checkout" xml:space="preserve"><value>Ολοκλήρωση</value></data>
+  <data name="ContinueShopping" xml:space="preserve"><value>Συνέχεια Αγορών</value></data>
+  <data name="PlaceOrder" xml:space="preserve"><value>Υποβολή Παραγγελίας</value></data>
+  <data name="Search" xml:space="preserve"><value>Αναζήτηση</value></data>
+  <data name="SearchProducts" xml:space="preserve"><value>Αναζήτηση προϊόντων...</value></data>
+  <data name="AllCategories" xml:space="preserve"><value>Όλες οι Κατηγορίες</value></data>
+  <data name="Details" xml:space="preserve"><value>Λεπτομέρειες</value></data>
+  <data name="Reviews" xml:space="preserve"><value>Κριτικές</value></data>
+  <data name="SubmitReview" xml:space="preserve"><value>Υποβολή Κριτικής</value></data>
+  <data name="CartEmpty" xml:space="preserve"><value>Το καλάθι σας είναι άδειο.</value></data>
+  <data name="BrowseProducts" xml:space="preserve"><value>Περιήγηση Προϊόντων</value></data>
+  <data name="Subtotal" xml:space="preserve"><value>Υποσύνολο</value></data>
+  <data name="Total" xml:space="preserve"><value>Σύνολο</value></data>
+  <data name="Remove" xml:space="preserve"><value>Αφαίρεση</value></data>
+  <data name="ShareAndSave" xml:space="preserve"><value>Μοιραστείτε &amp; Εξοικονομήστε 10%!</value></data>
+  <data name="ShareDescription" xml:space="preserve"><value>Μοιραστείτε το καλάθι σας στα μέσα κοινωνικής δικτύωσης και κερδίστε 10% έκπτωση</value></data>
+  <data name="DiscountApplied" xml:space="preserve"><value>Η έκπτωση κοινοποίησης εφαρμόστηκε!</value></data>
+  <data name="CompleteYourSetup" xml:space="preserve"><value>Ολοκληρώστε τη Ρύθμιση</value></data>
+  <data name="FrequentlyBoughtTogether" xml:space="preserve"><value>Αγοράζονται Συχνά Μαζί</value></data>
+  <data name="YouMightAlsoLike" xml:space="preserve"><value>Μπορεί Επίσης να σας Αρέσει</value></data>
+  <data name="OrderConfirmed" xml:space="preserve"><value>Η Παραγγελία Επιβεβαιώθηκε!</value></data>
+  <data name="ThankYou" xml:space="preserve"><value>Ευχαριστούμε για την αγορά σας. Αυτή είναι μια δοκιμαστική παραγγελία.</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Καλώς ήρθατε στο EShop</value></data>
+  <data name="HeroSubtitle" xml:space="preserve"><value>Ανακαλύψτε εκπληκτικά προϊόντα σε εξαιρετικές τιμές</value></data>
+  <data name="ShopNow" xml:space="preserve"><value>Αγοράστε Τώρα</value></data>
+  <data name="FeaturedProducts" xml:space="preserve"><value>Προτεινόμενα Προϊόντα</value></data>
+  <data name="ShopByCategory" xml:space="preserve"><value>Αγορά ανά Κατηγορία</value></data>
+  <data name="Email" xml:space="preserve"><value>Email</value></data>
+  <data name="Password" xml:space="preserve"><value>Κωδικός</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Επιβεβαίωση Κωδικού</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Όνομα</value></data>
+  <data name="LastName" xml:space="preserve"><value>Επώνυμο</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>Δημιουργία Λογαριασμού</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Αποθήκευση Αλλαγών</value></data>
+  <data name="MyProfile" xml:space="preserve"><value>Το Προφίλ Μου</value></data>
+  <data name="MyOrders" xml:space="preserve"><value>Οι Παραγγελίες Μου</value></data>
+  <data name="NoOrders" xml:space="preserve"><value>Δεν έχετε κάνει ακόμα παραγγελίες.</value></data>
+  <data name="Digital" xml:space="preserve"><value>Ψηφιακό</value></data>
+  <data name="Physical" xml:space="preserve"><value>Φυσικό</value></data>
+  <data name="InStock" xml:space="preserve"><value>σε απόθεμα</value></data>
+  <data name="OutOfStock" xml:space="preserve"><value>Εξαντλήθηκε</value></data>
+  <data name="NoProducts" xml:space="preserve"><value>Δεν βρέθηκαν προϊόντα.</value></data>
+  <data name="BackToProducts" xml:space="preserve"><value>Πίσω στα προϊόντα</value></data>
+  <data name="LoginToReview" xml:space="preserve"><value>Συνδεθείτε για να αφήσετε κριτική.</value></data>
+  <data name="NoReviews" xml:space="preserve"><value>Δεν υπάρχουν κριτικές. Γίνετε ο πρώτος!</value></data>
+  <data name="Rating" xml:space="preserve"><value>Βαθμολογία</value></data>
+  <data name="Title" xml:space="preserve"><value>Τίτλος</value></data>
+  <data name="Comment" xml:space="preserve"><value>Σχόλιο</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Σύνοψη Παραγγελίας</value></data>
+  <data name="ShippingInformation" xml:space="preserve"><value>Πληροφορίες Αποστολής</value></data>
+  <data name="PaymentDemo" xml:space="preserve"><value>Πληρωμή (Δοκιμαστική)</value></data>
+  <data name="MockPaymentNote" xml:space="preserve"><value>Αυτή είναι μια δοκιμαστική ολοκλήρωση. Δεν γίνεται πραγματική πληρωμή.</value></data>
+  <data name="CardNumber" xml:space="preserve"><value>Αριθμός Κάρτας</value></data>
+  <data name="Address" xml:space="preserve"><value>Διεύθυνση</value></data>
+  <data name="City" xml:space="preserve"><value>Πόλη</value></data>
+  <data name="State" xml:space="preserve"><value>Περιφέρεια</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>Ταχυδρομικός Κώδικας</value></data>
+  <data name="DontHaveAccount" xml:space="preserve"><value>Δεν έχετε λογαριασμό;</value></data>
+  <data name="AlreadyHaveAccount" xml:space="preserve"><value>Έχετε ήδη λογαριασμό;</value></data>
+</root>

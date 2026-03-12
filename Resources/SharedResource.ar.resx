@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
+  <data name="Products" xml:space="preserve"><value>المنتجات</value></data>
+  <data name="Admin" xml:space="preserve"><value>الإدارة</value></data>
+  <data name="Login" xml:space="preserve"><value>تسجيل الدخول</value></data>
+  <data name="Register" xml:space="preserve"><value>إنشاء حساب</value></data>
+  <data name="Logout" xml:space="preserve"><value>تسجيل الخروج</value></data>
+  <data name="Profile" xml:space="preserve"><value>الملف الشخصي</value></data>
+  <data name="Orders" xml:space="preserve"><value>الطلبات</value></data>
+  <data name="ShoppingCart" xml:space="preserve"><value>سلة التسوق</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>أضف إلى السلة</value></data>
+  <data name="Checkout" xml:space="preserve"><value>إتمام الشراء</value></data>
+  <data name="ContinueShopping" xml:space="preserve"><value>متابعة التسوق</value></data>
+  <data name="PlaceOrder" xml:space="preserve"><value>تأكيد الطلب</value></data>
+  <data name="Search" xml:space="preserve"><value>بحث</value></data>
+  <data name="SearchProducts" xml:space="preserve"><value>البحث عن منتجات...</value></data>
+  <data name="AllCategories" xml:space="preserve"><value>جميع الفئات</value></data>
+  <data name="Details" xml:space="preserve"><value>التفاصيل</value></data>
+  <data name="Reviews" xml:space="preserve"><value>التقييمات</value></data>
+  <data name="SubmitReview" xml:space="preserve"><value>إرسال التقييم</value></data>
+  <data name="CartEmpty" xml:space="preserve"><value>سلة التسوق فارغة.</value></data>
+  <data name="BrowseProducts" xml:space="preserve"><value>تصفح المنتجات</value></data>
+  <data name="Subtotal" xml:space="preserve"><value>المجموع الفرعي</value></data>
+  <data name="Total" xml:space="preserve"><value>المجموع</value></data>
+  <data name="Remove" xml:space="preserve"><value>إزالة</value></data>
+  <data name="ShareAndSave" xml:space="preserve"><value>شارك ووفر 10%!</value></data>
+  <data name="ShareDescription" xml:space="preserve"><value>شارك سلة التسوق على وسائل التواصل الاجتماعي واحصل على خصم 10% فوري</value></data>
+  <data name="DiscountApplied" xml:space="preserve"><value>تم تطبيق خصم المشاركة!</value></data>
+  <data name="CompleteYourSetup" xml:space="preserve"><value>أكمل مجموعتك</value></data>
+  <data name="FrequentlyBoughtTogether" xml:space="preserve"><value>يُشترى معاً بشكل متكرر</value></data>
+  <data name="YouMightAlsoLike" xml:space="preserve"><value>قد يعجبك أيضاً</value></data>
+  <data name="OrderConfirmed" xml:space="preserve"><value>تم تأكيد الطلب!</value></data>
+  <data name="ThankYou" xml:space="preserve"><value>شكراً لشرائك. هذا طلب تجريبي.</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>مرحباً بك في EShop</value></data>
+  <data name="HeroSubtitle" xml:space="preserve"><value>اكتشف منتجات رائعة بأسعار مميزة</value></data>
+  <data name="ShopNow" xml:space="preserve"><value>تسوق الآن</value></data>
+  <data name="FeaturedProducts" xml:space="preserve"><value>منتجات مميزة</value></data>
+  <data name="ShopByCategory" xml:space="preserve"><value>تسوق حسب الفئة</value></data>
+  <data name="Email" xml:space="preserve"><value>البريد الإلكتروني</value></data>
+  <data name="Password" xml:space="preserve"><value>كلمة المرور</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>تأكيد كلمة المرور</value></data>
+  <data name="FirstName" xml:space="preserve"><value>الاسم الأول</value></data>
+  <data name="LastName" xml:space="preserve"><value>اسم العائلة</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>إنشاء حساب</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data>
+  <data name="MyProfile" xml:space="preserve"><value>ملفي الشخصي</value></data>
+  <data name="MyOrders" xml:space="preserve"><value>طلباتي</value></data>
+  <data name="NoOrders" xml:space="preserve"><value>لم تقم بأي طلبات بعد.</value></data>
+  <data name="Digital" xml:space="preserve"><value>رقمي</value></data>
+  <data name="Physical" xml:space="preserve"><value>مادي</value></data>
+  <data name="InStock" xml:space="preserve"><value>متوفر</value></data>
+  <data name="OutOfStock" xml:space="preserve"><value>غير متوفر</value></data>
+  <data name="NoProducts" xml:space="preserve"><value>لم يتم العثور على منتجات.</value></data>
+  <data name="BackToProducts" xml:space="preserve"><value>العودة للمنتجات</value></data>
+  <data name="LoginToReview" xml:space="preserve"><value>سجل الدخول لكتابة تقييم.</value></data>
+  <data name="NoReviews" xml:space="preserve"><value>لا توجد تقييمات بعد. كن الأول!</value></data>
+  <data name="Rating" xml:space="preserve"><value>التقييم</value></data>
+  <data name="Title" xml:space="preserve"><value>العنوان</value></data>
+  <data name="Comment" xml:space="preserve"><value>التعليق</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>ملخص الطلب</value></data>
+  <data name="ShippingInformation" xml:space="preserve"><value>معلومات الشحن</value></data>
+  <data name="PaymentDemo" xml:space="preserve"><value>الدفع (تجريبي)</value></data>
+  <data name="MockPaymentNote" xml:space="preserve"><value>هذه عملية دفع تجريبية. لا يتم إجراء دفع حقيقي.</value></data>
+  <data name="CardNumber" xml:space="preserve"><value>رقم البطاقة</value></data>
+  <data name="Address" xml:space="preserve"><value>العنوان</value></data>
+  <data name="City" xml:space="preserve"><value>المدينة</value></data>
+  <data name="State" xml:space="preserve"><value>المحافظة</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>الرمز البريدي</value></data>
+  <data name="DontHaveAccount" xml:space="preserve"><value>ليس لديك حساب؟</value></data>
+  <data name="AlreadyHaveAccount" xml:space="preserve"><value>لديك حساب بالفعل؟</value></data>
+</root>
