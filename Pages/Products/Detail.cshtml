@@ -37,6 +37,26 @@ else
                     </span>
                 </div>
 
+                @if (Model.Product.Reviews.Any())
+                {
+                    <div class="flex items-center gap-2">
+                        <div class="flex text-yellow-400">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                @if (i <= Math.Round(Model.AverageRating))
+                                {
+                                    <span>&#9733;</span>
+                                }
+                                else
+                                {
+                                    <span class="text-slate-600">&#9733;</span>
+                                }
+                            }
+                        </div>
+                        <span class="text-sm text-slate-400">@Model.AverageRating.ToString("F1") (@Model.Product.Reviews.Count reviews)</span>
+                    </div>
+                }
+
                 @if (Model.Product.ProductType == aspshop.Models.ProductType.Physical && Model.Product.StockQuantity.HasValue)
                 {
                     <p class="text-sm text-slate-400">
@@ -57,9 +77,45 @@ else
         <!-- Reviews -->
         <section class="space-y-4">
             <h2 class="text-2xl font-bold text-white">Reviews</h2>
+
+            <!-- Review Form -->
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <form method="post" asp-page-handler="Review" asp-route-id="@Model.Product.Id"
+                      class="bg-slate-800 border border-slate-700 rounded-lg p-4 space-y-3">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">Rating</label>
+                        <select asp-for="Review.Rating" class="bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">Title</label>
+                        <input asp-for="Review.Title" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">Comment</label>
+                        <textarea asp-for="Review.Comment" rows="3" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"></textarea>
+                    </div>
+                    <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition">
+                        Submit Review
+                    </button>
+                </form>
+            }
+            else
+            {
+                <p class="text-slate-400 text-sm">
+                    <a asp-page="/Account/Login" class="text-indigo-400 hover:text-indigo-300">Login</a> to leave a review.
+                </p>
+            }
+
             @if (Model.Product.Reviews.Any())
             {
-                @foreach (var review in Model.Product.Reviews)
+                @foreach (var review in Model.Product.Reviews.OrderByDescending(r => r.CreatedAt))
                 {
                     <div class="bg-slate-800 border border-slate-700 rounded-lg p-4">
                         <div class="flex items-center gap-2 mb-2">
@@ -85,7 +141,7 @@ else
             }
             else
             {
-                <p class="text-slate-400">No reviews yet.</p>
+                <p class="text-slate-400">No reviews yet. Be the first!</p>
             }
         </section>
     </div>

@@ -15,7 +15,7 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 | **Framework** | ASP.NET Core 9.0 |
 | **Pattern** | Razor Pages |
 | **Database** | SQLite + Entity Framework Core |
-| **Styling** | TailwindCSS (standalone CLI) |
+| **Styling** | TailwindCSS v4 (standalone CLI) |
 | **Auth** | ASP.NET Core Identity |
 | **Dev Environment** | Docker + Dev Containers |
 
@@ -25,27 +25,39 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 
 ### Core Features
 
-- [ ] **Product Catalog** - Browse products with images, descriptions, prices
-- [ ] **Product Categories** - Organize products (Electronics, Books, Software, etc.)
-- [ ] **Search** - Search products by name and description
-- [ ] **Shopping Cart** - Add/remove items, update quantities
-- [ ] **Mock Checkout** - Simulated payment flow (no real transactions)
+- [x] **Product Catalog** - Browse products with descriptions, prices
+- [x] **Product Categories** - Organize products (Electronics, Books, Software, Clothing)
+- [x] **Search** - Search products by name and description
+- [x] **Category Filter** - Filter products by category on `/products`
+- [x] **Shopping Cart** - Session-based; add/remove items, update quantities, quick-add from listings
+- [x] **Mock Checkout** - Simulated payment flow (no real transactions)
 
 ### User Features
 
-- [ ] **Registration** - Create account with email/password
-- [ ] **Login/Logout** - Secure authentication
-- [ ] **User Profile** - View/edit account details
-- [ ] **Order History** - View past orders
-- [ ] **Saved Addresses** - Store shipping addresses (for physical goods)
-- [ ] **Reviews & Ratings** - Rate products 1-5 stars, write reviews
+- [x] **Registration** - Create account with email/password
+- [x] **Login/Logout** - Secure authentication with ASP.NET Identity
+- [x] **User Profile** - View/edit first and last name
+- [x] **Order History** - View past orders with items and totals
+- [ ] **Saved Addresses** - Store shipping addresses (model exists, no UI)
+- [x] **Reviews & Ratings** - Rate products 1-5 stars, write reviews (requires login)
 
 ### Admin Features
 
-- [ ] **Admin Dashboard** - Overview of orders, products, users
-- [ ] **Product Management** - CRUD operations for products
-- [ ] **Category Management** - Create/edit/delete categories
-- [ ] **Order Management** - View and update order status
+- [x] **Admin Dashboard** - Overview counts: products, categories, orders, users
+- [x] **Product Management** - Create, edit, delete products
+- [x] **Category Management** - Create and delete categories
+- [x] **Order Management** - View orders and update status
+- [x] **Role-Based Access** - Admin pages require "Admin" role; nav link hidden from non-admins
+
+---
+
+## Seeded Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Admin** | `admin@eshop.com` | `Admin123!` |
+
+The admin user is created automatically on first run. Customers register via `/account/register`.
 
 ---
 
@@ -124,12 +136,13 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 - CreatedAt (datetime)
 ```
 
-### CartItem (session-based or DB)
+### Cart (session-based, not in DB)
 ```
-- Id (int, PK)
-- UserId (string, FK, nullable for guests)
-- SessionId (string, for guests)
-- ProductId (int, FK)
+Stored as JSON in browser session:
+- ProductId (int)
+- Name (string)
+- Price (decimal)
+- ImageUrl (string)
 - Quantity (int)
 ```
 
@@ -138,34 +151,37 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 ## Pages Structure
 
 ```
-/                           - Home (featured products, categories)
-/products                   - All products (with search/filter)
-/products/{slug}            - Product detail page
-/category/{slug}            - Products by category
-/cart                       - Shopping cart
-/checkout                   - Checkout flow (mock)
-/checkout/confirmation      - Order confirmation
+Built:
+/                           - Home (hero, categories, featured products with quick-add)
+/products                   - All products (search, category filter, quick-add)
+/products/{id}              - Product detail (reviews display, add to cart)
+/cart                       - Shopping cart (quantity +/-, remove)
+/checkout                   - Mock checkout (shipping form, fake payment)
+/checkout/confirmation      - Order confirmed with random order #
 
 /account/register           - Registration
 /account/login              - Login
-/account/profile            - User profile
-/account/orders             - Order history
-/account/orders/{id}        - Order detail
-/account/addresses          - Manage addresses
+/account/logout             - Logout (POST only)
+/account/profile            - Edit name (requires login)
+/account/orders             - Order history (requires login)
 
-/admin                      - Admin dashboard
-/admin/products             - Product list
-/admin/products/create      - Add product
-/admin/products/edit/{id}   - Edit product
-/admin/categories           - Category management
-/admin/orders               - Order management
+/admin                      - Dashboard with stats (requires Admin role)
+/admin/products             - Product list + delete
+/admin/products/create      - Add product form
+/admin/products/edit/{id}   - Edit product form
+/admin/categories           - Add/delete categories
+/admin/orders               - View orders, update status
+
+Not yet built:
+/account/addresses          - Manage saved addresses
+/account/orders/{id}        - Individual order detail
 ```
 
 ---
 
 ## UI Design
 
-**Theme**: Dark mode with TailwindCSS
+**Theme**: Dark mode with TailwindCSS v4
 
 **Color Palette**:
 - Background: `slate-900`, `slate-800`
@@ -175,71 +191,18 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 - Success: `emerald-500`
 - Error: `red-500`
 
-**Components**:
-- Responsive navbar with cart icon + count
-- Product cards with hover effects
-- Star rating display
+**Built Components**:
+- Responsive navbar with cart icon + item count badge
+- Product cards with hover border effect + quick-add buttons
+- Star rating display on product detail
+- Auth-aware nav (Login/Register vs Profile/Orders/Logout)
+- Admin link visible only to Admin role
+
+**Not Yet Built**:
 - Toast notifications for cart actions
-- Mobile-friendly sidebar filters
-
----
-
-## Implementation Phases
-
-### Phase 1: Foundation
-1. Project setup (Razor Pages, EF Core, Identity)
-2. Database models and migrations
-3. TailwindCSS configuration
-4. Basic layout with dark theme
-
-### Phase 2: Product Catalog
-1. Product and Category models
-2. Seed data (sample products)
-3. Product listing page with pagination
-4. Product detail page
-5. Category filtering
-6. Search functionality
-
-### Phase 3: Shopping Cart
-1. Cart service (session-based)
-2. Add to cart functionality
-3. Cart page with quantity updates
-4. Cart icon with item count
-
-### Phase 4: Authentication
-1. ASP.NET Identity setup
-2. Register/Login pages
-3. User profile page
-4. Protected routes
-
-### Phase 5: Checkout & Orders
-1. Mock checkout flow
-2. Order creation
-3. Order history page
-4. Order detail page
-
-### Phase 6: Reviews
-1. Review model and form
-2. Display reviews on product page
-3. Average rating calculation
-
-### Phase 7: Admin
-1. Admin role and authorization
-2. Product CRUD pages
-3. Category management
-4. Order management dashboard
-
----
-
-## Seeded Accounts
-
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | `admin@eshop.com` | `Admin123!` |
-
-The admin user is created automatically on first run. Customers register via `/account/register`.
-
-Admin pages (`/admin/*`) require the "Admin" role. Regular users are redirected to login if they try to access them.
+- Mobile hamburger menu
+- Pagination on product listing
+- Product image upload (currently placeholder SVGs)
 
 ---
 
@@ -258,9 +221,9 @@ Admin pages (`/admin/*`) require the "Admin" role. Regular users are redirected 
 
 ## Success Criteria
 
-1. User can browse products, add to cart, and complete mock checkout
-2. User can register, login, and view order history
-3. Admin can manage products and categories
+1. ~~User can browse products, add to cart, and complete mock checkout~~
+2. ~~User can register, login, and view order history~~
+3. ~~Admin can manage products and categories~~
 4. UI is responsive and uses dark mode consistently
 5. Code demonstrates clean Razor Pages patterns
-6. Project runs entirely in Dev Container
+6. ~~Project runs entirely in Dev Container~~

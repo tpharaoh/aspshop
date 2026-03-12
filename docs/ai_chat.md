@@ -282,6 +282,48 @@ When a form POSTs, the page reloads. If the user was filtering by "Electronics",
 
 ---
 
+## Session 9: Spec Audit + Reviews + Real Orders
+
+### User Input
+> anything missing from docs/spec.md
+
+### What Claude Did
+Compared the spec to what was actually built and found:
+- Feature checkboxes were all unchecked despite being built
+- Pages structure listed wrong routes (`/products/{slug}` vs actual `/products/{id}`)
+- CartItem model described DB version but we use session-based JSON
+- Several "Not Yet Built" items not called out
+- Missing components (toast notifications, pagination, etc.) not flagged
+
+Rewrote the entire spec to match reality with `[x]`/`[ ]` checkboxes, "Built" vs "Not yet built" sections, and accurate route list.
+
+### User Input
+> update the spec to match what we actually built, then build next features
+
+### What Claude Did
+
+**Built review submit form** (`Pages/Products/Detail`):
+- Rating dropdown (1-5 stars), title, comment fields
+- Only visible to logged-in users (guests see "Login to leave a review" link)
+- `OnPostReviewAsync` handler creates Review in DB
+- Average rating displayed next to product price with star count
+- Reviews sorted newest-first
+
+**Made checkout create real Orders** (`Pages/Checkout/Index.cshtml.cs`):
+- Previously just generated a random number and cleared cart
+- Now creates an `Order` with `OrderItems` in the database
+- Links to logged-in user (or "guest" if not authenticated)
+- Order shows up in `/account/orders` for logged-in users
+- Confirmation page shows the real order ID
+
+### Key Learning: Progressive Enhancement
+The checkout started as a fake (random order #, no DB). This is a valid approach:
+1. Build the UI flow first (fake it)
+2. Wire up real data later
+3. The user experience looks the same, but now it's backed by real data
+
+---
+
 ## Session 6: Committing in Logical Groups
 
 ### User Input
