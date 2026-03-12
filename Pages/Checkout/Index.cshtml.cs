@@ -20,13 +20,19 @@ public class IndexModel : PageModel
         _userManager = userManager;
     }
 
-    public List<CartItem> CartItems { get; set; } = new();
+    public List<Services.CartItem> CartItems { get; set; } = new();
+    public decimal CartSubtotal { get; set; }
     public decimal CartTotal { get; set; }
+    public decimal DiscountAmount { get; set; }
+    public bool HasDiscount { get; set; }
 
     public void OnGet()
     {
         CartItems = _cart.GetCart();
+        CartSubtotal = _cart.GetCartSubtotal();
         CartTotal = _cart.GetCartTotal();
+        DiscountAmount = _cart.GetDiscountAmount();
+        HasDiscount = _cart.HasSocialDiscount();
     }
 
     public async Task<IActionResult> OnPostAsync()

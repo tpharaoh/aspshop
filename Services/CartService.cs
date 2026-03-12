@@ -80,6 +80,7 @@ public class CartService
     public void ClearCart()
     {
         Session.Remove(CartKey);
+        Session.Remove("SocialDiscount");
     }
 
     public int GetCartCount()
@@ -87,8 +88,34 @@ public class CartService
         return GetCart().Sum(c => c.Quantity);
     }
 
-    public decimal GetCartTotal()
+    public decimal GetCartSubtotal()
     {
         return GetCart().Sum(c => c.Price * c.Quantity);
+    }
+
+    public decimal GetCartTotal()
+    {
+        var subtotal = GetCartSubtotal();
+        if (HasSocialDiscount())
+        {
+            return Math.Round(subtotal * 0.9m, 2);
+        }
+        return subtotal;
+    }
+
+    public decimal GetDiscountAmount()
+    {
+        if (!HasSocialDiscount()) return 0;
+        return Math.Round(GetCartSubtotal() * 0.1m, 2);
+    }
+
+    public bool HasSocialDiscount()
+    {
+        return Session.GetString("SocialDiscount") == "true";
+    }
+
+    public void ApplySocialDiscount()
+    {
+        Session.SetString("SocialDiscount", "true");
     }
 }
