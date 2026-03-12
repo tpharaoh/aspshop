@@ -5,13 +5,13 @@
 }
 
 <div class="max-w-4xl mx-auto space-y-6">
-    <h1 class="text-3xl font-bold text-white">My Orders</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">My Orders</h1>
 
     @if (!Model.Orders.Any())
     {
         <div class="text-center py-12">
-            <p class="text-slate-400">You haven't placed any orders yet.</p>
-            <a asp-page="/Products/Index" class="text-indigo-400 hover:text-indigo-300 mt-2 inline-block">Browse Products</a>
+            <p class="text-gray-500 dark:text-slate-400">You haven't placed any orders yet.</p>
+            <a asp-page="/Products/Index" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 mt-2 inline-block">Browse Products</a>
         </div>
     }
     else
@@ -19,23 +19,23 @@
         <div class="space-y-4">
             @foreach (var order in Model.Orders)
             {
-                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-6">
                     <div class="flex items-center justify-between mb-4">
                         <div>
-                            <span class="text-white font-semibold">Order #@order.Id</span>
-                            <span class="text-slate-400 text-sm ml-4">@order.OrderDate.ToString("MMM dd, yyyy")</span>
+                            <span class="text-gray-900 dark:text-white font-semibold">Order #@order.Id</span>
+                            <span class="text-gray-500 dark:text-slate-400 text-sm ml-4">@order.OrderDate.ToString("MMM dd, yyyy")</span>
                         </div>
                         <div class="flex items-center gap-4">
-                            <span class="text-sm px-3 py-1 rounded-full bg-slate-700 text-slate-300">@order.Status</span>
-                            <span class="text-emerald-400 font-bold">$@order.TotalAmount.ToString("F2")</span>
+                            <span class="text-sm px-3 py-1 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300">@order.Status</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">$@order.TotalAmount.ToString("F2")</span>
                         </div>
                     </div>
                     <div class="space-y-2">
                         @foreach (var item in order.OrderItems)
                         {
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-300">@item.Product.Name x @item.Quantity</span>
-                                <span class="text-slate-400">$@((item.UnitPrice * item.Quantity).ToString("F2"))</span>
+                                <span class="text-gray-600 dark:text-slate-300">@item.Product.Name x @item.Quantity</span>
+                                <span class="text-gray-500 dark:text-slate-400">$@((item.UnitPrice * item.Quantity).ToString("F2"))</span>
                             </div>
                         }
                     </div>

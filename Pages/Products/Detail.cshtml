@@ -7,32 +7,32 @@
 @if (Model.Product == null)
 {
     <div class="text-center py-12">
-        <h1 class="text-2xl font-bold text-white">Product not found</h1>
-        <a asp-page="/Products/Index" class="text-indigo-400 hover:text-indigo-300 mt-4 inline-block">Back to products</a>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Product not found</h1>
+        <a asp-page="/Products/Index" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 mt-4 inline-block">@L["BackToProducts"]</a>
     </div>
 }
 else
 {
     <div class="space-y-8">
-        <a asp-page="/Products/Index" class="text-indigo-400 hover:text-indigo-300 text-sm">&larr; Back to products</a>
+        <a asp-page="/Products/Index" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 text-sm">&larr; @L["BackToProducts"]</a>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Image -->
-            <div class="bg-slate-800 border border-slate-700 rounded-lg h-80 flex items-center justify-center">
-                <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg h-80 flex items-center justify-center">
+                <svg class="w-24 h-24 text-gray-300 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
             </div>
 
             <!-- Details -->
             <div class="space-y-4">
-                <span class="text-sm text-indigo-400 font-medium">@Model.Product.Category.Name</span>
-                <h1 class="text-3xl font-bold text-white">@Model.Product.Name</h1>
-                <p class="text-slate-400">@Model.Product.Description</p>
+                <span class="text-sm text-indigo-600 dark:text-indigo-400 font-medium">@Model.Product.Category.Name</span>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">@Model.Product.Name</h1>
+                <p class="text-gray-500 dark:text-slate-400">@Model.Product.Description</p>
 
                 <div class="flex items-center gap-4">
-                    <span class="text-3xl font-bold text-emerald-400">$@Model.Product.Price.ToString("F2")</span>
-                    <span class="text-sm px-3 py-1 rounded-full bg-slate-700 text-slate-300">
+                    <span class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">$@Model.Product.Price.ToString("F2")</span>
+                    <span class="text-sm px-3 py-1 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300">
                         @(Model.Product.ProductType == aspshop.Models.ProductType.Digital ? "Digital" : "Physical")
                     </span>
                 </div>
@@ -49,17 +49,17 @@ else
                                 }
                                 else
                                 {
-                                    <span class="text-slate-600">&#9733;</span>
+                                    <span class="text-gray-300 dark:text-slate-600">&#9733;</span>
                                 }
                             }
                         </div>
-                        <span class="text-sm text-slate-400">@Model.AverageRating.ToString("F1") (@Model.Product.Reviews.Count reviews)</span>
+                        <span class="text-sm text-gray-500 dark:text-slate-400">@Model.AverageRating.ToString("F1") (@Model.Product.Reviews.Count reviews)</span>
                     </div>
                 }
 
                 @if (Model.Product.ProductType == aspshop.Models.ProductType.Physical && Model.Product.StockQuantity.HasValue)
                 {
-                    <p class="text-sm text-slate-400">
+                    <p class="text-sm text-gray-500 dark:text-slate-400">
                         @(Model.Product.StockQuantity > 0 ? $"{Model.Product.StockQuantity} in stock" : "Out of stock")
                     </p>
                 }
@@ -68,24 +68,70 @@ else
                     <input type="hidden" name="productId" value="@Model.Product.Id" />
                     <button type="submit"
                             class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition mt-4">
-                        Add to Cart
+                        @L["AddToCart"]
                     </button>
                 </form>
             </div>
         </div>
 
+        <!-- @L["FrequentlyBoughtTogether"] -->
+        @if (Model.FrequentlyBoughtTogether.Any())
+        {
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">@L["FrequentlyBoughtTogether"]</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    @foreach (var rec in Model.FrequentlyBoughtTogether)
+                    {
+                        <a asp-page="/Products/Detail" asp-route-id="@rec.Id"
+                           class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4 hover:border-indigo-500 transition">
+                            <div class="h-24 bg-gray-100 dark:bg-slate-700 rounded flex items-center justify-center mb-3">
+                                <svg class="w-10 h-10 text-gray-300 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white truncate">@rec.Name</h3>
+                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1">$@rec.Price.ToString("F2")</p>
+                        </a>
+                    }
+                </div>
+            </section>
+        }
+
+        <!-- @L["YouMightAlsoLike"] -->
+        @if (Model.YouMightAlsoLike.Any())
+        {
+            <section class="space-y-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">@L["YouMightAlsoLike"]</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    @foreach (var rec in Model.YouMightAlsoLike)
+                    {
+                        <a asp-page="/Products/Detail" asp-route-id="@rec.Id"
+                           class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4 hover:border-indigo-500 transition">
+                            <div class="h-24 bg-gray-100 dark:bg-slate-700 rounded flex items-center justify-center mb-3">
+                                <svg class="w-10 h-10 text-gray-300 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white truncate">@rec.Name</h3>
+                            <p class="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1">$@rec.Price.ToString("F2")</p>
+                        </a>
+                    }
+                </div>
+            </section>
+        }
+
         <!-- Reviews -->
         <section class="space-y-4">
-            <h2 class="text-2xl font-bold text-white">Reviews</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">@L["Reviews"]</h2>
 
             <!-- Review Form -->
             @if (User.Identity?.IsAuthenticated == true)
             {
                 <form method="post" asp-page-handler="Review" asp-route-id="@Model.Product.Id"
-                      class="bg-slate-800 border border-slate-700 rounded-lg p-4 space-y-3">
+                      class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4 space-y-3">
                     <div>
-                        <label class="block text-sm text-slate-400 mb-1">Rating</label>
-                        <select asp-for="Review.Rating" class="bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500">
+                        <label class="block text-sm text-gray-500 dark:text-slate-400 mb-1">Rating</label>
+                        <select asp-for="Review.Rating" class="bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500">
                             <option value="5">5 Stars</option>
                             <option value="4">4 Stars</option>
                             <option value="3">3 Stars</option>
@@ -94,22 +140,22 @@ else
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm text-slate-400 mb-1">Title</label>
-                        <input asp-for="Review.Title" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+                        <label class="block text-sm text-gray-500 dark:text-slate-400 mb-1">Title</label>
+                        <input asp-for="Review.Title" class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
                     </div>
                     <div>
-                        <label class="block text-sm text-slate-400 mb-1">Comment</label>
-                        <textarea asp-for="Review.Comment" rows="3" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"></textarea>
+                        <label class="block text-sm text-gray-500 dark:text-slate-400 mb-1">Comment</label>
+                        <textarea asp-for="Review.Comment" rows="3" class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"></textarea>
                     </div>
                     <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition">
-                        Submit Review
+                        @L["SubmitReview"]
                     </button>
                 </form>
             }
             else
             {
-                <p class="text-slate-400 text-sm">
-                    <a asp-page="/Account/Login" class="text-indigo-400 hover:text-indigo-300">Login</a> to leave a review.
+                <p class="text-gray-500 dark:text-slate-400 text-sm">
+                    <a asp-page="/Account/Login" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300">@L["Login"]</a> @L["LoginToReview"]
                 </p>
             }
 
@@ -117,7 +163,7 @@ else
             {
                 @foreach (var review in Model.Product.Reviews.OrderByDescending(r => r.CreatedAt))
                 {
-                    <div class="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                    <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4">
                         <div class="flex items-center gap-2 mb-2">
                             <div class="flex text-yellow-400">
                                 @for (int i = 1; i <= 5; i++)
@@ -128,20 +174,20 @@ else
                                     }
                                     else
                                     {
-                                        <span class="text-slate-600">&#9733;</span>
+                                        <span class="text-gray-300 dark:text-slate-600">&#9733;</span>
                                     }
                                 }
                             </div>
-                            <span class="text-sm text-slate-400">@review.CreatedAt.ToString("MMM dd, yyyy")</span>
+                            <span class="text-sm text-gray-500 dark:text-slate-400">@review.CreatedAt.ToString("MMM dd, yyyy")</span>
                         </div>
-                        <h4 class="font-semibold text-white">@review.Title</h4>
-                        <p class="text-slate-400 text-sm mt-1">@review.Comment</p>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">@review.Title</h4>
+                        <p class="text-gray-500 dark:text-slate-400 text-sm mt-1">@review.Comment</p>
                     </div>
                 }
             }
             else
             {
-                <p class="text-slate-400">No reviews yet. Be the first!</p>
+                <p class="text-gray-500 dark:text-slate-400">@L["NoReviews"]</p>
             }
         </section>
     </div>

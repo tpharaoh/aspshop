@@ -1,31 +1,31 @@
 @page
 @model aspshop.Pages.Account.LoginModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = L["Login"].Value;
 }
 
 <div class="max-w-md mx-auto space-y-6">
-    <h1 class="text-3xl font-bold text-white text-center">Login</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white text-center">@L["Login"]</h1>
 
     @if (Model.ErrorMessage != null)
     {
-        <div class="bg-red-500/10 border border-red-500 text-red-400 rounded-lg p-3 text-sm">@Model.ErrorMessage</div>
+        <div class="bg-red-500/10 border border-red-500 text-red-600 dark:text-red-400 rounded-lg p-3 text-sm">@Model.ErrorMessage</div>
     }
 
-    <form method="post" class="bg-slate-800 border border-slate-700 rounded-lg p-6 space-y-4">
+    <form method="post" class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-6 space-y-4">
         <div>
-            <label class="block text-sm text-slate-400 mb-1">Email</label>
-            <input asp-for="Input.Email" type="email" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+            <label class="block text-sm text-gray-500 dark:text-slate-400 mb-1">@L["Email"]</label>
+            <input asp-for="Input.Email" type="email" class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
         </div>
         <div>
-            <label class="block text-sm text-slate-400 mb-1">Password</label>
-            <input asp-for="Input.Password" type="password" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+            <label class="block text-sm text-gray-500 dark:text-slate-400 mb-1">@L["Password"]</label>
+            <input asp-for="Input.Password" type="password" class="w-full bg-gray-50 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
         </div>
         <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-lg transition">
-            Login
+            @L["Login"]
         </button>
-        <p class="text-center text-sm text-slate-400">
-            Don't have an account? <a asp-page="/Account/Register" class="text-indigo-400 hover:text-indigo-300">Register</a>
+        <p class="text-center text-sm text-gray-500 dark:text-slate-400">
+            @L["DontHaveAccount"] <a asp-page="/Account/Register" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300">@L["Register"]</a>
         </p>
     </form>
 </div>
