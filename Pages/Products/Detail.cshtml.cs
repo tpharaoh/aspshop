@@ -14,16 +14,20 @@ public class DetailModel : PageModel
     private readonly AppDbContext _db;
     private readonly CartService _cart;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RecommendationService _recs;
 
-    public DetailModel(AppDbContext db, CartService cart, UserManager<ApplicationUser> userManager)
+    public DetailModel(AppDbContext db, CartService cart, UserManager<ApplicationUser> userManager, RecommendationService recs)
     {
         _db = db;
         _cart = cart;
         _userManager = userManager;
+        _recs = recs;
     }
 
     public Product? Product { get; set; }
     public double AverageRating { get; set; }
+    public List<Product> FrequentlyBoughtTogether { get; set; } = new();
+    public List<Product> YouMightAlsoLike { get; set; } = new();
 
     [BindProperty]
     public ReviewInput Review { get; set; } = new();
@@ -38,6 +42,11 @@ public class DetailModel : PageModel
     public async Task OnGetAsync(int id)
     {
         await LoadProduct(id);
+        if (Product != null)
+        {
+            FrequentlyBoughtTogether = await _recs.GetFrequentlyBoughtTogether(id, 4);
+            YouMightAlsoLike = await _recs.GetSameCategory(id, 4);
+        }
     }
 
     public async Task<IActionResult> OnPostAddToCartAsync(int productId)

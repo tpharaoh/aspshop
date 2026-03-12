@@ -4,10 +4,26 @@ using aspshop.Data;
 using aspshop.Models;
 using aspshop.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Localization
+builder.Services.AddLocalization();
+
+var supportedCultures = new[] { "en", "el", "ar" };
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.SetDefaultCulture("en");
+    options.AddSupportedCultures(supportedCultures);
+    options.AddSupportedUICultures(supportedCultures);
+    options.RequestCultureProviders.Insert(0,
+        new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider());
+});
+
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -38,6 +54,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<RecommendationService>();
 
 var app = builder.Build();
 
@@ -79,10 +96,28 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
+app.UseRequestLocalization();
 app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Language switcher endpoint
+app.MapGet("/set-language/{culture}", (string culture, HttpContext context) =>
+{
+    var supportedLangs = new[] { "en", "el", "ar" };
+    if (!supportedLangs.Contains(culture)) culture = "en";
+
+    context.Response.Cookies.Append(
+        Microsoft.AspNetCore.Localization.CookieRequestCultureProvider.DefaultCookieName,
+        Microsoft.AspNetCore.Localization.CookieRequestCultureProvider.MakeCookieValue(
+            new Microsoft.AspNetCore.Localization.RequestCulture(culture)),
+        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+    );
+
+    var referer = context.Request.Headers.Referer.ToString();
+    return Results.Redirect(string.IsNullOrEmpty(referer) ? "/" : referer);
+});
 
 app.MapStaticAssets();
 app.MapRazorPages()
