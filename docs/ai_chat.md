@@ -265,6 +265,23 @@ Hiding a link is NOT security - the `[Authorize]` attribute is what actually enf
 
 ---
 
+## Session 8: Quick Add to Cart from Product Listings
+
+### User Input
+> I think we also need a "quick add" to cart from the index page without opening details
+
+### What Claude Did
+
+1. **Added `OnPostAddToCartAsync` handler** to both `Pages/Index.cshtml.cs` and `Pages/Products/Index.cshtml.cs`
+2. **Added "Details" + "Add to Cart" buttons** to product cards on both pages
+3. **Products page preserves search/filter** - hidden inputs pass `search` and `category` back so the page doesn't reset after adding to cart
+4. **Changed product cards on `/products`** from full-card links (`<a>`) to `<div>` with separate buttons, so the Add to Cart button doesn't navigate away
+
+### Key Learning: Preserving State on POST
+When a form POSTs, the page reloads. If the user was filtering by "Electronics", you need to pass those filters as hidden inputs so the redirect preserves them. Otherwise the user loses their search every time they add something to cart.
+
+---
+
 ## Session 6: Committing in Logical Groups
 
 ### User Input

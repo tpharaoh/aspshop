@@ -51,6 +51,19 @@
                                 @(product.ProductType == aspshop.Models.ProductType.Digital ? "Digital" : "Physical")
                             </span>
                         </div>
+                        <div class="flex gap-2 mt-3">
+                            <a asp-page="/Products/Detail" asp-route-id="@product.Id"
+                               class="flex-1 text-center text-sm border border-slate-600 hover:border-slate-500 text-slate-300 py-2 rounded-lg transition">
+                                Details
+                            </a>
+                            <form method="post" asp-page-handler="AddToCart" class="flex-1">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit"
+                                        class="w-full text-sm bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg transition">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             }

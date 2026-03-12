@@ -29,8 +29,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach (var product in Model.Products)
         {
-            <a asp-page="/Products/Detail" asp-route-id="@product.Id"
-               class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-indigo-500 transition block">
+            <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden hover:border-indigo-500 transition">
                 <div class="h-48 bg-slate-700 flex items-center justify-center">
                     <svg class="w-16 h-16 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -46,8 +45,23 @@
                             @(product.ProductType == aspshop.Models.ProductType.Digital ? "Digital" : "Physical")
                         </span>
                     </div>
+                    <div class="flex gap-2 mt-3">
+                        <a asp-page="/Products/Detail" asp-route-id="@product.Id"
+                           class="flex-1 text-center text-sm border border-slate-600 hover:border-slate-500 text-slate-300 py-2 rounded-lg transition">
+                            Details
+                        </a>
+                        <form method="post" asp-page-handler="AddToCart" class="flex-1">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="hidden" name="search" value="@Model.SearchTerm" />
+                            <input type="hidden" name="category" value="@Model.CategoryFilter" />
+                            <button type="submit"
+                                    class="w-full text-sm bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg transition">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </a>
+            </div>
         }
     </div>
 
