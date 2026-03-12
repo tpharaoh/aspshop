@@ -1,3 +1,5 @@
+@using aspshop.Services
+@inject CartService Cart
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
@@ -16,15 +18,35 @@
                         <div class="hidden sm:flex gap-4">
                             <a asp-page="/Index" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
                             <a asp-page="/Products/Index" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Products</a>
+                            <a asp-page="/Admin/Index" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Admin</a>
                         </div>
                     </div>
                     <div class="flex items-center gap-4">
-                        <a asp-page="/Cart/Index" class="text-slate-300 hover:text-white relative">
+                        <a asp-page="/Cart/Index" class="text-slate-300 hover:text-white relative flex items-center gap-1">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
                             </svg>
+                            @{
+                                var cartCount = Cart.GetCartCount();
+                            }
+                            @if (cartCount > 0)
+                            {
+                                <span class="bg-indigo-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">@cartCount</span>
+                            }
                         </a>
-                        <a asp-page="/Account/Login" class="text-slate-300 hover:text-white text-sm font-medium">Login</a>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-page="/Account/Profile" class="text-slate-300 hover:text-white text-sm font-medium">Profile</a>
+                            <a asp-page="/Account/Orders" class="text-slate-300 hover:text-white text-sm font-medium">Orders</a>
+                            <form method="post" asp-page="/Account/Logout" class="inline">
+                                <button type="submit" class="text-slate-300 hover:text-white text-sm font-medium">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-page="/Account/Login" class="text-slate-300 hover:text-white text-sm font-medium">Login</a>
+                            <a asp-page="/Account/Register" class="bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg transition">Register</a>
+                        }
                     </div>
                 </div>
             </div>
