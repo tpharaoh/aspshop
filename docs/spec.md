@@ -206,6 +206,46 @@ Not yet built:
 
 ---
 
+## Showcase Features
+
+These features go beyond a typical sample project to demonstrate real-world patterns.
+
+### 1. Social Share Discount
+- [ ] Share button on cart page - "Share for 10% off!"
+- [ ] Simulated social share flow (opens mock share dialog)
+- [ ] On "confirmation", applies a 10% discount code to the cart
+- [ ] Discount shown as line item in cart and checkout
+- [ ] One-time use per session (can't stack)
+- [ ] Visual badge on cart showing discount is active
+
+### 2. AI Product Recommendations
+- [ ] "Frequently Bought Together" section on product detail page (products from same orders)
+- [ ] "You Might Also Like" section (same category, different products)
+- [ ] "Complete Your Setup" suggestions on cart page based on what's in cart
+- [ ] Falls back gracefully when not enough data (shows category matches)
+
+### 3. Real-Time Stock Indicator (SignalR)
+- [ ] Live "X people viewing this" counter on product detail
+- [ ] Stock level badge updates in real-time (e.g., "Only 3 left!")
+- [ ] Simulated viewer count that fluctuates
+- [ ] SignalR hub for pushing updates to connected clients
+
+### 4. Dark/Light Theme Toggle
+- [ ] Toggle button in navbar
+- [ ] Persisted in localStorage (survives page reload)
+- [ ] Light theme uses clean white/gray palette
+- [ ] Smooth CSS transition between themes
+- [ ] Respects system preference on first visit (`prefers-color-scheme`)
+
+### 5. Multi-Language Support (i18n)
+- [ ] Language switcher in navbar (English, Spanish, French)
+- [ ] Translates UI labels, buttons, nav items
+- [ ] Product data stays in English (content translation out of scope)
+- [ ] Persisted in cookie/localStorage
+- [ ] Uses ASP.NET Core localization middleware
+
+---
+
 ## Out of Scope (for this version)
 
 - Real payment processing
@@ -213,9 +253,8 @@ Not yet built:
 - Inventory management alerts
 - Wishlists
 - Product variants (size, color)
-- Coupons/discounts
-- Multi-language support
 - Advanced analytics
+- Product content translation (UI labels only for i18n)
 
 ---
 
@@ -227,3 +266,4 @@ Not yet built:
 4. UI is responsive and uses dark mode consistently
 5. Code demonstrates clean Razor Pages patterns
 6. ~~Project runs entirely in Dev Container~~
+7. Showcase features demonstrate portfolio-level engineering

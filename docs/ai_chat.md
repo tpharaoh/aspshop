@@ -324,35 +324,121 @@ The checkout started as a fake (random order #, no DB). This is a valid approach
 
 ---
 
-## Session 6: Committing in Logical Groups
+## Session 10: Brainstorming Unique Features
 
 ### User Input
-> commit remaining files in logical commits
+> what else should we build? I'd love to add something unique to spec, to show power of AI. 1) multi lingual 2) what about a confirmed social share gets automatic discount on cart
+
+### What Claude Did
+Evaluated both ideas and proposed alternatives:
+
+- **Multi-lingual**: Rejected - lots of boilerplate, not impressive for portfolio
+- **Social share discount**: Kept - unique UX, real e-commerce pattern, mockable without real FB API
+- **AI product recommendations**: Suggested - "Frequently bought together" / "You might also like" based on category and order data
+- **Real-time stock with SignalR**: Suggested - "X people viewing" + live stock, but more complex
+- **Dark/Light theme toggle**: Suggested - quick polish win with localStorage persistence
+
+Recommended top 3: Social share discount, AI recommendations, Theme toggle.
+
+### Key Learning: Feature Selection for Portfolio Projects
+When choosing features for a portfolio project, optimize for:
+- **Visual impact** - Does it look impressive in a demo?
+- **Technical depth** - Does it show real engineering skills?
+- **Uniqueness** - Does it stand out from other sample projects?
+- **Feasibility** - Can you actually finish it?
+
+Multi-lingual is technically deep but visually boring. Social share discount is visually fun AND technically interesting.
+
+---
+
+---
+
+## Session 11: Building 5 Showcase Features
+
+### User Input
+> lets add all 5 of those to spec, then start building
+> My friend is from Yemen, living in Greece, so lets make site english, greek, arabic
 
 ### What Claude Did
 
-1. **Checked git status** - Found `bin/`, `obj/`, and `*.db` files were tracked (bad!)
-2. **Created `.gitignore`** first - Added rules for build artifacts and databases
-3. **Removed tracked artifacts** - Used `git rm -r --cached` to untrack 167 files without deleting them
-4. **Made 5 logical commits**:
+Built 4 of the 5 showcase features across multiple sub-sessions:
 
-| # | Message | What's in it |
-|---|---------|-------------|
-| 1 | Add .gitignore and remove build artifacts | `.gitignore` + untrack `bin/`, `obj/`, `*.db` |
-| 2 | Add Identity auth, session cart, layout | `Program.cs`, `_Layout.cshtml`, `site.css` |
-| 3 | Add Identity database migration | EF Core migration files |
-| 4 | Add admin order management page | `Pages/Admin/Orders/` |
-| 5 | Update docs | `Claude.md`, `ai_chat.md` |
+#### Feature 1: Dark/Light Theme Toggle ✅
 
-### Key Learnings
+**Files modified**: `Pages/Shared/_Layout.cshtml`, `Styles/input.css`, and ALL 16 `.cshtml` pages
 
-**Always add `.gitignore` early** - The initial commit had tracked `bin/` and `obj/` (build output) and `*.db` (runtime database). These should never be in git because:
-- They're regenerated on every build
-- They bloat the repo (the bin/ folder alone was 160+ files)
-- Database files change on every run
+1. Added `@custom-variant dark (&:where(.dark, .dark *))` to Tailwind input.css
+2. Added inline `<script>` in `<head>` to apply theme BEFORE paint (prevents white flash)
+3. Added sun/moon toggle button in navbar using `dark:hidden` / `hidden dark:block` pattern
+4. Toggle JS at bottom of body saves to `localStorage`
+5. Respects `prefers-color-scheme` on first visit
+6. **Updated every page** with `dark:` variants - changed hardcoded dark classes like `text-white` to `text-gray-900 dark:text-white`, `bg-slate-800` to `bg-white dark:bg-slate-800`, etc.
 
-**`git rm --cached`** removes files from git tracking without deleting them from disk. This is how you fix "I accidentally committed files I shouldn't have."
+**Key Learning: Preventing Flash of Wrong Theme**
+The theme script runs in `<head>` before the browser paints anything. If it were at the bottom of `<body>`, you'd see a flash of the wrong theme on every page load.
 
-**Logical commits** group related changes together. Instead of one giant "update everything" commit, separate by concern: infra, features, migrations, docs. This makes `git log` useful for understanding what changed and why.
+#### Feature 2: Social Share Discount ✅
+
+**Files modified**: `Services/CartService.cs`, `Pages/Cart/Index.cshtml` + `.cs`, `Pages/Checkout/Index.cshtml` + `.cs`
+
+1. Added `ApplySocialDiscount()`, `HasSocialDiscount()`, `GetDiscountAmount()` to CartService
+2. Cart page shows gradient banner with Facebook/Twitter/WhatsApp share buttons
+3. JS opens real share window, then POSTs to `ApplyDiscount` handler after 2-second delay
+4. Discount badge shows "-10%" when active
+5. Cart total section shows subtotal, discount line, and discounted total
+6. Checkout page also displays the discount breakdown
+
+**Key Learning: Simulated Integration**
+No real Facebook API needed - we open the real share URL but simulate the "confirmed" callback with a `setTimeout`. For a portfolio project, this demonstrates the pattern without requiring API keys.
+
+#### Feature 3: AI Product Recommendations ✅
+
+**New file**: `Services/RecommendationService.cs`
+**Modified**: `Pages/Products/Detail.cshtml` + `.cs`, `Pages/Cart/Index.cshtml` + `.cs`, `Program.cs`
+
+Three recommendation strategies:
+1. **Frequently Bought Together** - queries OrderItems to find products that appear in the same orders
+2. **You Might Also Like** - same category, randomized
+3. **Complete Your Setup** (cart page) - based on categories of items in cart
+
+All three fall back gracefully when there's not enough order data.
+
+**Bug fixed**: `Guid.NewGuid()` can't be translated to SQLite SQL. Changed to load candidates into memory first, then shuffle with `Random.Shared.Next()`.
+
+**Bug fixed**: `CartItem` ambiguous reference (CS0104) - both `aspshop.Models.CartItem` and `aspshop.Services.CartItem` exist. Fixed by removing `using aspshop.Models` and qualifying `aspshop.Models.Product` explicitly.
+
+**Key Learning: EF Core Translation Limits**
+Not every C# expression can be converted to SQL. `Guid.NewGuid()` works in LINQ-to-Objects but fails in LINQ-to-Entities (EF Core). When you see "could not be translated", either rewrite the query or fetch to memory first with `.ToListAsync()` then operate in C#.
+
+#### Feature 4: Multi-Language Support (i18n) 🔧 In Progress
+
+**New files**: `Resources/SharedResource.cs`, `SharedResource.en.resx`, `SharedResource.el.resx`, `SharedResource.ar.resx`
+**Modified**: `Program.cs`, `Pages/_ViewImports.cshtml`, `Pages/Shared/_Layout.cshtml`, all major pages
+
+1. Created marker class `SharedResource` for shared localization
+2. Created `.resx` resource files with ~50 keys each for English, Greek (Ελληνικά), and Arabic (العربية)
+3. Added ASP.NET Core localization middleware with `CookieRequestCultureProvider`
+4. Added `/set-language/{culture}` endpoint that sets cookie and redirects back
+5. Added language dropdown in navbar (EN / ΕΛ / عر)
+6. Added RTL support: `dir="rtl"` on `<html>` when Arabic is selected
+7. Replaced hardcoded English text with `@L["Key"]` across Home, Products, Cart, Checkout, Detail, Login, Register pages
+
+**Bug #1 fixed**: Namespace mismatch - marker class was in `aspshop.Resources` namespace causing localizer to look for `Resources/Resources/SharedResource.ar.resx` (double path). Fixed by moving class to `aspshop` namespace.
+
+**Bug #2**: Resource files not loading. Debugged over multiple attempts:
+- First thought: manifest resource name mismatch. Tried `<ManifestResourceName>` overrides in `.csproj` - didn't help
+- Then `<EmbeddedResource Update>` vs `<EmbeddedResource Include>` - SDK already auto-includes `.resx`, `Include` causes duplicates
+- Added a diagnostic in `Program.cs` to list resources at runtime - found satellite assemblies exist with names like `aspshop.SharedResource.en.resources`
+- Root cause: `ResourcesPath = "Resources"` makes the localizer look for `aspshop.Resources.SharedResource` but the compiled resources are named `aspshop.SharedResource`. Removing `ResourcesPath` fixed it
+
+**Key Learning: ASP.NET Core Localization Resource Naming**
+The localizer finds resources by matching the type's full name to an embedded resource name. When using `ResourcesPath = "Resources"`, the folder prefix should NOT appear in the resource name. But MSBuild automatically includes the folder in the manifest name. You must either:
+- Override `ManifestResourceName` in `.csproj`
+- Put the marker class in the matching namespace
+- Or skip `ResourcesPath` entirely
+
+This is a common gotcha. **Debugging technique**: when localization silently fails, add a runtime diagnostic that uses `Assembly.GetSatelliteAssembly()` and `ResourceManager` directly to see what names the runtime actually finds vs. what the localizer expects.
+
+#### Feature 5: Real-Time Stock (SignalR) - Not Yet Started
 
 ---
