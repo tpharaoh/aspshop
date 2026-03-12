@@ -1,0 +1,19 @@
+@page
+@model aspshop.Pages.Checkout.ConfirmationModel
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<div class="max-w-lg mx-auto text-center py-16 space-y-6">
+    <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+    </div>
+    <h1 class="text-3xl font-bold text-white">Order Confirmed!</h1>
+    <p class="text-slate-400">Thank you for your purchase. This is a demo order.</p>
+    <p class="text-slate-300">Order #<span class="font-mono text-indigo-400">@Model.OrderId</span></p>
+    <a asp-page="/Products/Index" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg transition">
+        Continue Shopping
+    </a>
+</div>

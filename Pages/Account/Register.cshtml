@@ -1,0 +1,45 @@
+@page
+@model aspshop.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="max-w-md mx-auto space-y-6">
+    <h1 class="text-3xl font-bold text-white text-center">Create Account</h1>
+
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="bg-red-500/10 border border-red-500 text-red-400 rounded-lg p-3 text-sm">@Model.ErrorMessage</div>
+    }
+
+    <form method="post" class="bg-slate-800 border border-slate-700 rounded-lg p-6 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">First Name</label>
+                <input asp-for="Input.FirstName" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+            </div>
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">Last Name</label>
+                <input asp-for="Input.LastName" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+            </div>
+        </div>
+        <div>
+            <label class="block text-sm text-slate-400 mb-1">Email</label>
+            <input asp-for="Input.Email" type="email" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+        </div>
+        <div>
+            <label class="block text-sm text-slate-400 mb-1">Password</label>
+            <input asp-for="Input.Password" type="password" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+        </div>
+        <div>
+            <label class="block text-sm text-slate-400 mb-1">Confirm Password</label>
+            <input asp-for="Input.ConfirmPassword" type="password" class="w-full bg-slate-700 border border-slate-600 text-slate-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500" />
+        </div>
+        <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-lg transition">
+            Register
+        </button>
+        <p class="text-center text-sm text-slate-400">
+            Already have an account? <a asp-page="/Account/Login" class="text-indigo-400 hover:text-indigo-300">Login</a>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,92 @@
+@page "{id:int}"
+@model aspshop.Pages.Products.DetailModel
+@{
+    ViewData["Title"] = Model.Product?.Name ?? "Product";
+}
+
+@if (Model.Product == null)
+{
+    <div class="text-center py-12">
+        <h1 class="text-2xl font-bold text-white">Product not found</h1>
+        <a asp-page="/Products/Index" class="text-indigo-400 hover:text-indigo-300 mt-4 inline-block">Back to products</a>
+    </div>
+}
+else
+{
+    <div class="space-y-8">
+        <a asp-page="/Products/Index" class="text-indigo-400 hover:text-indigo-300 text-sm">&larr; Back to products</a>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Image -->
+            <div class="bg-slate-800 border border-slate-700 rounded-lg h-80 flex items-center justify-center">
+                <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+            </div>
+
+            <!-- Details -->
+            <div class="space-y-4">
+                <span class="text-sm text-indigo-400 font-medium">@Model.Product.Category.Name</span>
+                <h1 class="text-3xl font-bold text-white">@Model.Product.Name</h1>
+                <p class="text-slate-400">@Model.Product.Description</p>
+
+                <div class="flex items-center gap-4">
+                    <span class="text-3xl font-bold text-emerald-400">$@Model.Product.Price.ToString("F2")</span>
+                    <span class="text-sm px-3 py-1 rounded-full bg-slate-700 text-slate-300">
+                        @(Model.Product.ProductType == aspshop.Models.ProductType.Digital ? "Digital" : "Physical")
+                    </span>
+                </div>
+
+                @if (Model.Product.ProductType == aspshop.Models.ProductType.Physical && Model.Product.StockQuantity.HasValue)
+                {
+                    <p class="text-sm text-slate-400">
+                        @(Model.Product.StockQuantity > 0 ? $"{Model.Product.StockQuantity} in stock" : "Out of stock")
+                    </p>
+                }
+
+                <form method="post" asp-page-handler="AddToCart">
+                    <input type="hidden" name="productId" value="@Model.Product.Id" />
+                    <button type="submit"
+                            class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition mt-4">
+                        Add to Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold text-white">Reviews</h2>
+            @if (Model.Product.Reviews.Any())
+            {
+                @foreach (var review in Model.Product.Reviews)
+                {
+                    <div class="bg-slate-800 border border-slate-700 rounded-lg p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="flex text-yellow-400">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    @if (i <= review.Rating)
+                                    {
+                                        <span>&#9733;</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-slate-600">&#9733;</span>
+                                    }
+                                }
+                            </div>
+                            <span class="text-sm text-slate-400">@review.CreatedAt.ToString("MMM dd, yyyy")</span>
+                        </div>
+                        <h4 class="font-semibold text-white">@review.Title</h4>
+                        <p class="text-slate-400 text-sm mt-1">@review.Comment</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-slate-400">No reviews yet.</p>
+            }
+        </section>
+    </div>
+}

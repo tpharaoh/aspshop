@@ -1,0 +1,52 @@
+@page
+@model aspshop.Pages.Admin.Products.IndexModel
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<div class="space-y-6">
+    <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold text-white">Products</h1>
+        <a asp-page="/Admin/Products/Create" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition">
+            + Add Product
+        </a>
+    </div>
+
+    <div class="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-700">
+                <tr>
+                    <th class="text-left text-sm font-medium text-slate-300 px-4 py-3">Name</th>
+                    <th class="text-left text-sm font-medium text-slate-300 px-4 py-3">Category</th>
+                    <th class="text-left text-sm font-medium text-slate-300 px-4 py-3">Price</th>
+                    <th class="text-left text-sm font-medium text-slate-300 px-4 py-3">Type</th>
+                    <th class="text-left text-sm font-medium text-slate-300 px-4 py-3">Active</th>
+                    <th class="text-right text-sm font-medium text-slate-300 px-4 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+                @foreach (var product in Model.Products)
+                {
+                    <tr class="hover:bg-slate-700/50">
+                        <td class="px-4 py-3 text-white">@product.Name</td>
+                        <td class="px-4 py-3 text-slate-400">@product.Category.Name</td>
+                        <td class="px-4 py-3 text-emerald-400">$@product.Price.ToString("F2")</td>
+                        <td class="px-4 py-3 text-slate-400">@product.ProductType</td>
+                        <td class="px-4 py-3">
+                            <span class="text-xs px-2 py-1 rounded @(product.IsActive ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400")">
+                                @(product.IsActive ? "Yes" : "No")
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-right">
+                            <a asp-page="/Admin/Products/Edit" asp-route-id="@product.Id" class="text-indigo-400 hover:text-indigo-300 text-sm mr-3">Edit</a>
+                            <form method="post" asp-page-handler="Delete" class="inline">
+                                <input type="hidden" name="id" value="@product.Id" />
+                                <button type="submit" class="text-red-400 hover:text-red-300 text-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

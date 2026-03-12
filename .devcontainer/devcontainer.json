@@ -1,0 +1,14 @@
+{
+  "name": "ASP.NET EShop",
+  "image": "mcr.microsoft.com/dotnet/sdk:9.0",
+  "forwardPorts": [5000, 5001],
+  "postCreateCommand": "dotnet --version && curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 && chmod +x tailwindcss-linux-x64 && mv tailwindcss-linux-x64 /usr/local/bin/tailwindcss",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
+}

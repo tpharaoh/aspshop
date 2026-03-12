@@ -1,0 +1,1 @@
+I need you to log each input to claude, use a file called docs/ai_chat.md purpose is to use this to teach a friend how to use claude
