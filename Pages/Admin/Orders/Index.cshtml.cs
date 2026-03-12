@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using aspshop.Models;
 
 namespace aspshop.Pages.Admin.Orders;
 
+[Authorize(Roles = "Admin")]
 public class IndexModel : PageModel
 {
     private readonly AppDbContext _db;

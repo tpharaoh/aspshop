@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using aspshop.Data;
 
 namespace aspshop.Pages.Admin;
 
+[Authorize(Roles = "Admin")]
 public class IndexModel : PageModel
 {
     private readonly AppDbContext _db;

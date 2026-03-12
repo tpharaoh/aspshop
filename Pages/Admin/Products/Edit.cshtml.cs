@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using aspshop.Models;
 
 namespace aspshop.Pages.Admin.Products;
 
+[Authorize(Roles = "Admin")]
 public class EditModel : PageModel
 {
     private readonly AppDbContext _db;

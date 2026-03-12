@@ -231,6 +231,18 @@ A sample e-commerce web application for learning ASP.NET Core with Razor Pages. 
 
 ---
 
+## Seeded Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Admin** | `admin@eshop.com` | `Admin123!` |
+
+The admin user is created automatically on first run. Customers register via `/account/register`.
+
+Admin pages (`/admin/*`) require the "Admin" role. Regular users are redirected to login if they try to access them.
+
+---
+
 ## Out of Scope (for this version)
 
 - Real payment processing

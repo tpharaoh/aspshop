@@ -215,3 +215,85 @@ Re-read Claude.md and ai_chat.md, found the log was out of order and missing sev
 The `Claude.md` file is like a **standing instruction** - Claude reads it at the start of every session. If you want Claude to always do something (like keep a log), put it in Claude.md. But you may need to remind Claude if it forgets mid-session!
 
 ---
+
+## Session 6: Committing in Logical Groups
+
+### User Input
+> commit remaining files in logical commits
+
+### What Claude Did
+1. Found `bin/`, `obj/`, `*.db` tracked in git - created `.gitignore` and removed them (167 files!)
+2. Made 5 logical commits: gitignore, identity+layout, migration, admin orders page, docs
+
+### Key Learning
+**Always add `.gitignore` early.** Use `git rm -r --cached <path>` to untrack files without deleting them. Group commits by concern (infra, features, migrations, docs).
+
+---
+
+## Session 7: Adding Authorization & Admin Security
+
+### User Input
+> security and gates are missing. I can use admin without logging in. You should make a seeded admin user, and a way for customers to register
+
+### What Claude Did
+
+1. **Added `[Authorize(Roles = "Admin")]`** to all 6 admin page models:
+   - `Pages/Admin/Index.cshtml.cs`
+   - `Pages/Admin/Products/Index.cshtml.cs`
+   - `Pages/Admin/Products/Create.cshtml.cs`
+   - `Pages/Admin/Products/Edit.cshtml.cs`
+   - `Pages/Admin/Categories/Index.cshtml.cs`
+   - `Pages/Admin/Orders/Index.cshtml.cs`
+
+2. **Seeded admin user in Program.cs** - On startup, creates:
+   - "Admin" role (if it doesn't exist)
+   - Admin user: `admin@eshop.com` / `Admin123!`
+
+3. **Updated layout** - Admin nav link only visible to users with Admin role (`User.IsInRole("Admin")`)
+
+4. **Set AccessDeniedPath** - Non-admin users hitting `/admin` get redirected to login page
+
+5. **Documented in spec.md** - Added "Seeded Accounts" section with credentials
+
+### Key Learning: Defense in Depth
+Authorization works at multiple levels:
+- **UI level**: Hide the Admin link from non-admins (layout)
+- **Page level**: `[Authorize(Roles = "Admin")]` blocks access even if someone types the URL directly
+- **Cookie config**: `AccessDeniedPath` handles what happens when blocked
+
+Hiding a link is NOT security - the `[Authorize]` attribute is what actually enforces it.
+
+---
+
+## Session 6: Committing in Logical Groups
+
+### User Input
+> commit remaining files in logical commits
+
+### What Claude Did
+
+1. **Checked git status** - Found `bin/`, `obj/`, and `*.db` files were tracked (bad!)
+2. **Created `.gitignore`** first - Added rules for build artifacts and databases
+3. **Removed tracked artifacts** - Used `git rm -r --cached` to untrack 167 files without deleting them
+4. **Made 5 logical commits**:
+
+| # | Message | What's in it |
+|---|---------|-------------|
+| 1 | Add .gitignore and remove build artifacts | `.gitignore` + untrack `bin/`, `obj/`, `*.db` |
+| 2 | Add Identity auth, session cart, layout | `Program.cs`, `_Layout.cshtml`, `site.css` |
+| 3 | Add Identity database migration | EF Core migration files |
+| 4 | Add admin order management page | `Pages/Admin/Orders/` |
+| 5 | Update docs | `Claude.md`, `ai_chat.md` |
+
+### Key Learnings
+
+**Always add `.gitignore` early** - The initial commit had tracked `bin/` and `obj/` (build output) and `*.db` (runtime database). These should never be in git because:
+- They're regenerated on every build
+- They bloat the repo (the bin/ folder alone was 160+ files)
+- Database files change on every run
+
+**`git rm --cached`** removes files from git tracking without deleting them from disk. This is how you fix "I accidentally committed files I shouldn't have."
+
+**Logical commits** group related changes together. Instead of one giant "update everything" commit, separate by concern: infra, features, migrations, docs. This makes `git log` useful for understanding what changed and why.
+
+---
